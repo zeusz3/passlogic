@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">PassLogic</string>
+    <string name="action_settings">Settingszzzz</string>
+    <string name="logic1">Logic1</string>
+    <string name="cypher">cypher</string>
+    <string name="logic2">Logic2</string>
+    <string name="logic3">Logic3</string>
+    <string name="logic4">Logic4</string>
+    <string name="logic5">Logic5</string>
+    <string name="pass">PassLogic</string>
+    <string name="title_activity_settings">zzzzz</string>
+
+</resources>

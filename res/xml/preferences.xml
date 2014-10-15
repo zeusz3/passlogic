@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <EditTextPreference
+        android:key="num_of_logics"
+        android:title="Number of Logics"
+        android:defaultValue="5" />
+    
+    <PreferenceScreen >
+        <CheckBoxPreference
+            android:key="~"
+            android:title="~"
+            android:defaultValue="true" />
+        
+    </PreferenceScreen>
+    
+
+</PreferenceScreen>
