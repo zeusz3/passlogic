@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="gr.zcat.pass.MainActivity" >
+    tools:context="gr.zcat.passlogic.MainActivity" >
 
     <EditText
         android:id="@+id/logicETX1"
@@ -56,11 +56,11 @@
         android:ems="10"
         android:hint="@string/logic5" />
     
-    <fragment android:name="gr.zcat.pass.SettingsFragment"
+    <fragment android:name="gr.zcat.passlogic.SettingsFragment"
             android:id="@+id/list"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="match_parent" />
+            android:layout_height="0dp" />
         
 	    <Button
 	        android:id="@+id/cypherBTN"

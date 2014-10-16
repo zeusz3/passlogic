@@ -4,9 +4,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Hashtable;
 import java.util.TreeSet;
-
 import android.support.v7.app.ActionBarActivity;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -45,6 +45,10 @@ public class MainActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            Intent intent = new Intent();
+            intent.setClass(MainActivity.this, SettingsFragment.class);
+            startActivityForResult(intent, 0); 
+      
             return true;
         }
         return super.onOptionsItemSelected(item);
