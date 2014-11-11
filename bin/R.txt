@@ -346,6 +346,7 @@ int string abc_searchview_description_voice 0x7f0b0008
 int string abc_shareactionprovider_share_with 0x7f0b000c
 int string abc_shareactionprovider_share_with_application 0x7f0b000b
 int string action_settings 0x7f0b000e
+int string allowedChars 0x7f0b0018
 int string app_name 0x7f0b000d
 int string cypher 0x7f0b0010
 int string logic1 0x7f0b000f
@@ -353,6 +354,8 @@ int string logic2 0x7f0b0011
 int string logic3 0x7f0b0012
 int string logic4 0x7f0b0013
 int string logic5 0x7f0b0014
+int string numberOfLogics 0x7f0b0019
+int string outputLength 0x7f0b0017
 int string pass 0x7f0b0015
 int string title_activity_settings 0x7f0b0016
 int style AppBaseTheme 0x7f0c008b

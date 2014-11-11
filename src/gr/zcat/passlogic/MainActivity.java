@@ -7,26 +7,37 @@ import java.util.TreeSet;
 import android.support.v7.app.ActionBarActivity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements OnSharedPreferenceChangeListener {
 	
 	private final Hashtable<Byte, String> allowedSymbols = new Hashtable<Byte, String>(256);
 	private final char[] allSymbols = {'a', '<', 'b', ',', 'c', '.', 'd', '>', 'e', '?', 'f', '/', 'g', ';', 'h', ':', 'i',
 	        '|', 'j', '}', 'k', ']', 'l', '[', 'm', '{', 'n', '=', 'o', '+', 'p', '-', 'q', '_', 'r', ')', 's', '(', 't', '*', 'u', '&', 'v',
 	        '^', 'w', '%', 'x', '$', 'y', '#', 'z', '@', 'A', '!', 'B', '~', 'C','`', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
-	        'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+	        'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'};
 	private final TreeSet<String> bannedSymbols = new TreeSet<String>();
+	private SharedPreferences sharedPref;
 	//{'\\', '\"', '\''};
+	private int outputLength, numberOfLogics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+        numberOfLogics = Integer.parseInt(sharedPref.getString("numberOfLogics", "5"));
+        outputLength = Integer.parseInt(sharedPref.getString("outputLength", "12"));
         initializeDict();
         setContentView(R.layout.activity_main);
     }
@@ -46,12 +57,20 @@ public class MainActivity extends ActionBarActivity {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             Intent intent = new Intent();
-            intent.setClass(MainActivity.this, SettingsFragment.class);
+            intent.setClass(MainActivity.this, PrefsActivity.class);
             startActivityForResult(intent, 0); 
       
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (key.equals("outputLength")) {
+            outputLength = Integer.parseInt(sharedPref.getString("outputLength", "12"));
+        }
+        Toast.makeText(getApplicationContext(), outputLength, Toast.LENGTH_SHORT).show();
     }
     
     public void getPass(View view) {
@@ -64,16 +83,16 @@ public class MainActivity extends ActionBarActivity {
 		MessageDigest md;
 		try {
 			md = MessageDigest.getInstance("SHA-512");
-			byte[][] hash = new byte[5][];
+			byte[][] hash = new byte[numberOfLogics][];
 			hash[0] = md.digest(editText1.getText().toString().getBytes());
 			hash[1] = md.digest(editText2.getText().toString().getBytes());
 			hash[2] = md.digest(editText3.getText().toString().getBytes());
 			hash[3] = md.digest(editText4.getText().toString().getBytes());
 			hash[4] = md.digest(editText5.getText().toString().getBytes());
 			StringBuilder sb = new StringBuilder(hash[0].length);
-			for(int i = 0; i < hash[0].length && i < 12*(hash[0].length/12); i+=(hash[0].length/(12))) {
+			for(int i = 0; i < hash[0].length && i < outputLength*(hash[0].length/outputLength); i+=(hash[0].length/(outputLength))) {
                 int b = 0;
-                for (int j = 0; j < 5; j++) {
+                for (int j = 0; j < numberOfLogics; j++) {
                     b ^= hash[j][i];
                 }
                 sb.append(allowedSymbols.get((byte)b));
@@ -89,32 +108,12 @@ public class MainActivity extends ActionBarActivity {
 	}
     
     private void initializeDict() {
-    	bannedSymbols.add("\"");
-    	bannedSymbols.add("\\");
-    	bannedSymbols.add("\'");
-        bannedSymbols.add("`");
-        bannedSymbols.add("~");
-        bannedSymbols.add("#");
-        bannedSymbols.add("%");
-        bannedSymbols.add("^");
-        bannedSymbols.add("(");
-        bannedSymbols.add(")");
-        bannedSymbols.add("-");
-        bannedSymbols.add("+");
-        bannedSymbols.add("+");
-        bannedSymbols.add("{");
-        bannedSymbols.add("[");
-        bannedSymbols.add("}");
-        bannedSymbols.add("]");
-        bannedSymbols.add("|");
-        bannedSymbols.add(";");
-        bannedSymbols.add(":");
-        bannedSymbols.add("/");
-        bannedSymbols.add(".");
-        bannedSymbols.add(">");
-        bannedSymbols.add(",");
-        bannedSymbols.add("<");
-        bannedSymbols.add("=");
+        for(int i = 0; i < allSymbols.length; i++) {
+        	if(!sharedPref.getBoolean(String.valueOf(allSymbols[i]), true)) {
+        		bannedSymbols.add(String.valueOf(allSymbols[i]));
+        	}
+        }
+        Toast.makeText(getApplicationContext(), String.valueOf(bannedSymbols.size()), Toast.LENGTH_SHORT).show();
         int j = 0;
     	for(int i = 0; i < 256; i++) {
             if(!bannedSymbols.contains(String.valueOf(allSymbols[j % 81]))) {

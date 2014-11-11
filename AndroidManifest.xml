@@ -22,10 +22,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <fragment
-            android:name=".SettingsFragment"
+        <activity
+            android:name=".PrefsActivity"
             android:label="@string/title_activity_settings" >
-        </fragment>
+        </activity>
     </application>
 
 </manifest>

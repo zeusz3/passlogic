@@ -1248,6 +1248,7 @@ containing a value of this type.
          */
         public static final int abc_shareactionprovider_share_with_application=0x7f0b000b;
         public static final int action_settings=0x7f0b000e;
+        public static final int allowedChars=0x7f0b0018;
         public static final int app_name=0x7f0b000d;
         public static final int cypher=0x7f0b0010;
         public static final int logic1=0x7f0b000f;
@@ -1255,6 +1256,8 @@ containing a value of this type.
         public static final int logic3=0x7f0b0012;
         public static final int logic4=0x7f0b0013;
         public static final int logic5=0x7f0b0014;
+        public static final int numberOfLogics=0x7f0b0019;
+        public static final int outputLength=0x7f0b0017;
         public static final int pass=0x7f0b0015;
         public static final int title_activity_settings=0x7f0b0016;
     }

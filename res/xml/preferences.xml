@@ -1,17 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
-    <EditTextPreference
-        android:key="num_of_logics"
-        android:title="Number of Logics"
-        android:defaultValue="5" />
-    
-    <PreferenceScreen >
-        <CheckBoxPreference
-            android:key="~"
-            android:title="~"
-            android:defaultValue="true" />
-        
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference android:title="@string/numberOfLogics" android:key="numberOfLogics" android:defaultValue="5" />
+    <EditTextPreference android:title="@string/outputLength" android:key="outputLength" android:defaultValue="12" />
+    <PreferenceScreen android:title="@string/allowedChars">
+        <CheckBoxPreference android:title="~" android:key="~" android:defaultValue="false" />
+        <CheckBoxPreference android:title="`" android:key="`" android:defaultValue="false" />
+        <CheckBoxPreference android:title="!" android:key="!" android:defaultValue="true" />
+        <CheckBoxPreference android:title="\@" android:key="\@" android:defaultValue="true" />
+        <CheckBoxPreference android:title="\#" android:key="\#" android:defaultValue="false" />
+        <CheckBoxPreference android:title="$" android:key="$" android:defaultValue="true" />
+        <CheckBoxPreference android:title="%" android:key="%" android:defaultValue="false" />
+        <CheckBoxPreference android:title="^" android:key="^" android:defaultValue="false" />
+        <CheckBoxPreference android:title="&amp;" android:key="&amp;" android:defaultValue="true" />
+        <CheckBoxPreference android:title="*" android:key="*" android:defaultValue="true" />
+        <CheckBoxPreference android:title="(" android:key="(" android:defaultValue="false" />
+        <CheckBoxPreference android:title=")" android:key=")" android:defaultValue="false" />
+        <CheckBoxPreference android:title="_" android:key="_" android:defaultValue="true" />
+        <CheckBoxPreference android:title="-" android:key="-" android:defaultValue="false" />
+        <CheckBoxPreference android:title="+" android:key="+" android:defaultValue="false" />
+        <CheckBoxPreference android:title="=" android:key="=" android:defaultValue="false" />
+        <CheckBoxPreference android:title="|" android:key="|" android:defaultValue="false" />
+        <CheckBoxPreference android:title="}" android:key="}" android:defaultValue="true" />
+        <CheckBoxPreference android:title="]" android:key="]" android:defaultValue="false" />
+        <CheckBoxPreference android:title="{" android:key="{" android:defaultValue="false" />
+        <CheckBoxPreference android:title="[" android:key="[" android:defaultValue="false" />
+        <CheckBoxPreference android:title=";" android:key=";" android:defaultValue="false" />
+        <CheckBoxPreference android:title=":" android:key=":" android:defaultValue="false" />
+        <CheckBoxPreference android:title="\?" android:key="\?" android:defaultValue="true" />
+        <CheckBoxPreference android:title="/" android:key="/" android:defaultValue="false" />
+        <CheckBoxPreference android:title="." android:key="." android:defaultValue="false" />
+        <CheckBoxPreference android:title=">" android:key=">" android:defaultValue="false" />
+        <CheckBoxPreference android:title="," android:key="," android:defaultValue="false" />
+        <CheckBoxPreference android:title="&lt;" android:key="&lt;" android:defaultValue="false" />
+        <CheckBoxPreference android:title="1" android:key="1" android:defaultValue="true" />
+        <CheckBoxPreference android:title="2" android:key="2" android:defaultValue="true" />
+        <CheckBoxPreference android:title="3" android:key="3" android:defaultValue="true" />
+        <CheckBoxPreference android:title="4" android:key="4" android:defaultValue="true" />
+        <CheckBoxPreference android:title="5" android:key="5" android:defaultValue="true" />
+        <CheckBoxPreference android:title="6" android:key="6" android:defaultValue="true" />
+        <CheckBoxPreference android:title="7" android:key="7" android:defaultValue="true" />
+        <CheckBoxPreference android:title="8" android:key="8" android:defaultValue="true" />
+        <CheckBoxPreference android:title="9" android:key="9" android:defaultValue="true" />
+        <CheckBoxPreference android:title="0" android:key="0" android:defaultValue="true" />
+        <CheckBoxPreference android:title="a" android:key="a" android:defaultValue="true" />
+        <CheckBoxPreference android:title="A" android:key="A" android:defaultValue="true" />
+        <CheckBoxPreference android:title="b" android:key="b" android:defaultValue="true" />
+        <CheckBoxPreference android:title="B" android:key="B" android:defaultValue="true" />
+        <CheckBoxPreference android:title="c" android:key="c" android:defaultValue="true" />
+        <CheckBoxPreference android:title="C" android:key="C" android:defaultValue="true" />
+        <CheckBoxPreference android:title="d" android:key="d" android:defaultValue="true" />
+        <CheckBoxPreference android:title="D" android:key="D" android:defaultValue="true" />
+        <CheckBoxPreference android:title="e" android:key="e" android:defaultValue="true" />
+        <CheckBoxPreference android:title="E" android:key="E" android:defaultValue="true" />
+        <CheckBoxPreference android:title="f" android:key="f" android:defaultValue="true" />
+        <CheckBoxPreference android:title="F" android:key="F" android:defaultValue="true" />
+        <CheckBoxPreference android:title="g" android:key="g" android:defaultValue="true" />
+        <CheckBoxPreference android:title="G" android:key="G" android:defaultValue="true" />
+        <CheckBoxPreference android:title="h" android:key="h" android:defaultValue="true" />
+        <CheckBoxPreference android:title="H" android:key="H" android:defaultValue="true" />
+        <CheckBoxPreference android:title="i" android:key="i" android:defaultValue="true" />
+        <CheckBoxPreference android:title="I" android:key="I" android:defaultValue="true" />
+        <CheckBoxPreference android:title="j" android:key="j" android:defaultValue="true" />
+        <CheckBoxPreference android:title="J" android:key="J" android:defaultValue="true" />
+        <CheckBoxPreference android:title="k" android:key="k" android:defaultValue="true" />
+        <CheckBoxPreference android:title="K" android:key="K" android:defaultValue="true" />
+        <CheckBoxPreference android:title="l" android:key="l" android:defaultValue="true" />
+        <CheckBoxPreference android:title="L" android:key="L" android:defaultValue="true" />
+        <CheckBoxPreference android:title="m" android:key="m" android:defaultValue="true" />
+        <CheckBoxPreference android:title="M" android:key="M" android:defaultValue="true" />
+        <CheckBoxPreference android:title="n" android:key="n" android:defaultValue="true" />
+        <CheckBoxPreference android:title="N" android:key="N" android:defaultValue="true" />
+        <CheckBoxPreference android:title="o" android:key="o" android:defaultValue="true" />
+        <CheckBoxPreference android:title="O" android:key="O" android:defaultValue="true" />
+        <CheckBoxPreference android:title="p" android:key="p" android:defaultValue="true" />
+        <CheckBoxPreference android:title="P" android:key="P" android:defaultValue="true" />
+        <CheckBoxPreference android:title="q" android:key="q" android:defaultValue="true" />
+        <CheckBoxPreference android:title="Q" android:key="Q" android:defaultValue="true" />
+        <CheckBoxPreference android:title="r" android:key="r" android:defaultValue="true" />
+        <CheckBoxPreference android:title="R" android:key="R" android:defaultValue="true" />
+        <CheckBoxPreference android:title="s" android:key="s" android:defaultValue="true" />
+        <CheckBoxPreference android:title="S" android:key="S" android:defaultValue="true" />
+        <CheckBoxPreference android:title="t" android:key="t" android:defaultValue="true" />
+        <CheckBoxPreference android:title="T" android:key="T" android:defaultValue="true" />
+        <CheckBoxPreference android:title="u" android:key="u" android:defaultValue="true" />
+        <CheckBoxPreference android:title="U" android:key="U" android:defaultValue="true" />
+        <CheckBoxPreference android:title="v" android:key="v" android:defaultValue="true" />
+        <CheckBoxPreference android:title="V" android:key="V" android:defaultValue="true" />
+        <CheckBoxPreference android:title="w" android:key="w" android:defaultValue="true" />
+        <CheckBoxPreference android:title="W" android:key="W" android:defaultValue="true" />
+        <CheckBoxPreference android:title="x" android:key="x" android:defaultValue="true" />
+        <CheckBoxPreference android:title="X" android:key="X" android:defaultValue="true" />
+        <CheckBoxPreference android:title="y" android:key="y" android:defaultValue="true" />
+        <CheckBoxPreference android:title="Y" android:key="Y" android:defaultValue="true" />
+        <CheckBoxPreference android:title="z" android:key="z" android:defaultValue="true" />
+        <CheckBoxPreference android:title="Z" android:key="Z" android:defaultValue="true" />
     </PreferenceScreen>
-    
-
 </PreferenceScreen>
