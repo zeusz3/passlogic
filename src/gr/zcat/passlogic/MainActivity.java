@@ -4,8 +4,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Hashtable;
 import java.util.TreeSet;
-
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -19,7 +17,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
-import android.widget.ScrollView;
 import android.widget.Toast;
 
 
@@ -34,22 +31,15 @@ public class MainActivity extends ActionBarActivity {
 	private SharedPreferences sharedPref;
 	//{'\\', '\"', '\''};
 	private int outputLength, numberOfLogics;
-	private ScrollView sv;
 	private LinearLayout ll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sv = new ScrollView(this);
         ll= new LinearLayout(this);
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-        //outputLength = Integer.parseInt(sharedPref.getString("outputLength", "12"));
-        //initializeDict();
-        //setContentView(R.layout.activity_main);
         initializeView();
-        //LogicsFragment lf = new LogicsFragment();
-        //getSupportFragmentManager().beginTransaction().add(lf, "logics").commit();
     }
     
     private void initializeView() {
@@ -103,12 +93,6 @@ public class MainActivity extends ActionBarActivity {
     public void getPass() {
     	initializeDict();
     	outputLength = Integer.parseInt(sharedPref.getString("outputLength", "12"));
-//		EditText editText1 = (EditText) findViewById(R.id.logicETX1);
-//		EditText editText2 = (EditText) findViewById(R.id.logicETX2);
-//		EditText editText3 = (EditText) findViewById(R.id.logicETX3);
-//		EditText editText4 = (EditText) findViewById(R.id.logicETX4);
-//		EditText editText5 = (EditText) findViewById(R.id.logicETX5);
-		//EditText passLogicETX = (EditText) findViewById(R.id.passLogicETX);
 		MessageDigest md;
 		try {
 			md = MessageDigest.getInstance("SHA-512");
@@ -116,11 +100,6 @@ public class MainActivity extends ActionBarActivity {
 			for(int i = 0; i < numberOfLogics; i++) {
 				hash[i] = md.digest(((EditText) findViewById(i)).getText().toString().getBytes());
 			}
-//			hash[0] = md.digest(editText1.getText().toString().getBytes());
-//			hash[1] = md.digest(editText2.getText().toString().getBytes());
-//			hash[2] = md.digest(editText3.getText().toString().getBytes());
-//			hash[3] = md.digest(editText4.getText().toString().getBytes());
-//			hash[4] = md.digest(editText5.getText().toString().getBytes());
 			StringBuilder sb = new StringBuilder(hash[0].length);
 			for(int i = 0; i < hash[0].length && i < outputLength*(hash[0].length/outputLength); i+=(hash[0].length/(outputLength))) {
                 int b = 0;
@@ -148,14 +127,12 @@ public class MainActivity extends ActionBarActivity {
         		bannedSymbols.add(String.valueOf(allSymbols[i]));
         	}
         }
-        //Toast.makeText(getApplicationContext(), String.valueOf(bannedSymbols.size()), Toast.LENGTH_SHORT).show();
         int j = 0;
     	for(int i = 0; i < 256; i++) {
             if(!bannedSymbols.contains(String.valueOf(allSymbols[j % allSymbols.length]))) {
                 allowedSymbols.put((byte)i, String.valueOf(allSymbols[j % allSymbols.length]));
             } else {
                 while(bannedSymbols.contains(String.valueOf(allSymbols[++j % allSymbols.length]))) {
-                        //j++;
                 }
                 allowedSymbols.put((byte)i, String.valueOf(allSymbols[j % allSymbols.length]));
             }
