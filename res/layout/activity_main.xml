@@ -5,56 +5,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="gr.zcat.passlogic.MainActivity" >
+    
+ <fragment android:name="gr.zcat.passlogic.LogicsFragment"
+            android:id="@+id/logics"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <EditText
-        android:id="@+id/logicETX1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"
-        android:ems="10"
-        android:hint="@string/logic1" />
-
-    <EditText
-        android:id="@+id/logicETX2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="10dp"
-        android:ems="10"
-        android:hint="@string/logic2" />
-
-    <EditText
-        android:id="@+id/logicETX3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="10dp"
-        android:ems="10"
-        android:hint="@string/logic3" />
-
-    <EditText
-        android:id="@+id/logicETX4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="10dp"
-        android:ems="10"
-        android:hint="@string/logic4" />
-
-    <EditText
-        android:id="@+id/logicETX5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="10dp"
-        android:ems="10"
-        android:hint="@string/logic5" />
     
     <fragment android:name="gr.zcat.passlogic.SettingsFragment"
             android:id="@+id/list"

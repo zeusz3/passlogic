@@ -14,5 +14,6 @@
     <string name="outputLength">Output Length</string>
     <string name="allowedChars">Allowed Characters</string>
     <string name="numberOfLogics">Number Of Logics</string>
+    <string name="noOfLogicsSum">Requires restart</string>
 
 </resources>

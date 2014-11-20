@@ -4,22 +4,26 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Hashtable;
 import java.util.TreeSet;
+
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
-import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 
-public class MainActivity extends ActionBarActivity implements OnSharedPreferenceChangeListener {
+public class MainActivity extends ActionBarActivity {
 	
 	private final Hashtable<Byte, String> allowedSymbols = new Hashtable<Byte, String>(256);
 	private final char[] allSymbols = {'a', '<', 'b', ',', 'c', '.', 'd', '>', 'e', '?', 'f', '/', 'g', ';', 'h', ':', 'i',
@@ -30,16 +34,48 @@ public class MainActivity extends ActionBarActivity implements OnSharedPreferenc
 	private SharedPreferences sharedPref;
 	//{'\\', '\"', '\''};
 	private int outputLength, numberOfLogics;
+	private ScrollView sv;
+	private LinearLayout ll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sv = new ScrollView(this);
+        ll= new LinearLayout(this);
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-        numberOfLogics = Integer.parseInt(sharedPref.getString("numberOfLogics", "5"));
-        outputLength = Integer.parseInt(sharedPref.getString("outputLength", "12"));
-        initializeDict();
-        setContentView(R.layout.activity_main);
+        //outputLength = Integer.parseInt(sharedPref.getString("outputLength", "12"));
+        //initializeDict();
+        //setContentView(R.layout.activity_main);
+        initializeView();
+        //LogicsFragment lf = new LogicsFragment();
+        //getSupportFragmentManager().beginTransaction().add(lf, "logics").commit();
+    }
+    
+    private void initializeView() {
+    	numberOfLogics = Integer.parseInt(sharedPref.getString("numberOfLogics", "5"));
+    	ll.removeAllViews();
+    	ll.setOrientation(LinearLayout.VERTICAL);
+    	LayoutParams lp = new LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+    	for(int i = 0; i < numberOfLogics; i++) {
+    		EditText et = new EditText(this);
+    		et.setId(i);
+    		et.setHint("Logic"+(i+1));
+    		et.setLayoutParams(lp);
+    		ll.addView(et);
+    	}
+    	Button cypher = new Button(this);
+    	lp = new LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+    	cypher.setText(R.string.cypher);
+    	cypher.setLayoutParams(lp);
+    	View.OnClickListener cypherBTNListener = new View.OnClickListener() {
+    		  public void onClick(View v) {
+    			  getPass();
+    		  }
+    	};
+    	cypher.setOnClickListener(cypherBTNListener);
+    	ll.addView(cypher);
+    	this.setContentView(ll);
     }
 
     @Override
@@ -59,36 +95,32 @@ public class MainActivity extends ActionBarActivity implements OnSharedPreferenc
             Intent intent = new Intent();
             intent.setClass(MainActivity.this, PrefsActivity.class);
             startActivityForResult(intent, 0); 
-      
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
     
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (key.equals("outputLength")) {
-            outputLength = Integer.parseInt(sharedPref.getString("outputLength", "12"));
-        }
-        Toast.makeText(getApplicationContext(), outputLength, Toast.LENGTH_SHORT).show();
-    }
-    
-    public void getPass(View view) {
-		EditText editText1 = (EditText) findViewById(R.id.logicETX1);
-		EditText editText2 = (EditText) findViewById(R.id.logicETX2);
-		EditText editText3 = (EditText) findViewById(R.id.logicETX3);
-		EditText editText4 = (EditText) findViewById(R.id.logicETX4);
-		EditText editText5 = (EditText) findViewById(R.id.logicETX5);
+    public void getPass() {
+    	initializeDict();
+    	outputLength = Integer.parseInt(sharedPref.getString("outputLength", "12"));
+//		EditText editText1 = (EditText) findViewById(R.id.logicETX1);
+//		EditText editText2 = (EditText) findViewById(R.id.logicETX2);
+//		EditText editText3 = (EditText) findViewById(R.id.logicETX3);
+//		EditText editText4 = (EditText) findViewById(R.id.logicETX4);
+//		EditText editText5 = (EditText) findViewById(R.id.logicETX5);
 		//EditText passLogicETX = (EditText) findViewById(R.id.passLogicETX);
 		MessageDigest md;
 		try {
 			md = MessageDigest.getInstance("SHA-512");
 			byte[][] hash = new byte[numberOfLogics][];
-			hash[0] = md.digest(editText1.getText().toString().getBytes());
-			hash[1] = md.digest(editText2.getText().toString().getBytes());
-			hash[2] = md.digest(editText3.getText().toString().getBytes());
-			hash[3] = md.digest(editText4.getText().toString().getBytes());
-			hash[4] = md.digest(editText5.getText().toString().getBytes());
+			for(int i = 0; i < numberOfLogics; i++) {
+				hash[i] = md.digest(((EditText) findViewById(i)).getText().toString().getBytes());
+			}
+//			hash[0] = md.digest(editText1.getText().toString().getBytes());
+//			hash[1] = md.digest(editText2.getText().toString().getBytes());
+//			hash[2] = md.digest(editText3.getText().toString().getBytes());
+//			hash[3] = md.digest(editText4.getText().toString().getBytes());
+//			hash[4] = md.digest(editText5.getText().toString().getBytes());
 			StringBuilder sb = new StringBuilder(hash[0].length);
 			for(int i = 0; i < hash[0].length && i < outputLength*(hash[0].length/outputLength); i+=(hash[0].length/(outputLength))) {
                 int b = 0;
@@ -102,27 +134,30 @@ public class MainActivity extends ActionBarActivity implements OnSharedPreferenc
 			AlertDialog dialog = ad.create();
 			dialog.show();
 		} catch (NoSuchAlgorithmException e) {
-			editText2.setText("no such algo");
+			Toast.makeText(this, "no such algo", Toast.LENGTH_SHORT).show();
 			e.printStackTrace();
 		}
 	}
     
     private void initializeDict() {
+    	if(bannedSymbols.size() > 0) {
+    		bannedSymbols.clear();
+    	}
         for(int i = 0; i < allSymbols.length; i++) {
-        	if(!sharedPref.getBoolean(String.valueOf(allSymbols[i]), true)) {
+        	if(!sharedPref.getBoolean(String.valueOf(allSymbols[i]), false)) {
         		bannedSymbols.add(String.valueOf(allSymbols[i]));
         	}
         }
-        Toast.makeText(getApplicationContext(), String.valueOf(bannedSymbols.size()), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), String.valueOf(bannedSymbols.size()), Toast.LENGTH_SHORT).show();
         int j = 0;
     	for(int i = 0; i < 256; i++) {
-            if(!bannedSymbols.contains(String.valueOf(allSymbols[j % 81]))) {
-                allowedSymbols.put((byte)i, String.valueOf(allSymbols[j % 81]));
+            if(!bannedSymbols.contains(String.valueOf(allSymbols[j % allSymbols.length]))) {
+                allowedSymbols.put((byte)i, String.valueOf(allSymbols[j % allSymbols.length]));
             } else {
-                while(bannedSymbols.contains(String.valueOf(allSymbols[++j % 81]))) {
+                while(bannedSymbols.contains(String.valueOf(allSymbols[++j % allSymbols.length]))) {
                         //j++;
                 }
-                allowedSymbols.put((byte)i, String.valueOf(allSymbols[j % 81]));
+                allowedSymbols.put((byte)i, String.valueOf(allSymbols[j % allSymbols.length]));
             }
             j++;
     	}
