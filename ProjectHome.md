@@ -1,0 +1,1 @@
+generate passwords derived from your logic and memory using different cryptographic hash generation algorithms, allowing the paremetrization of input and output.
